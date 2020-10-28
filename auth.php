@@ -271,6 +271,7 @@ class auth_plugin_oauth extends auth_plugin_authplain {
         $groups_on_creation = array();
         $groups_on_creation[] = $conf['defaultgroup'];
         $groups_on_creation[] = $this->cleanGroup($servicename); // add service as group
+        $groups_on_creation = array_unique(array_merge($groups_on_creation, $uinfo['grps']));
         $uinfo['grps'] = array_merge((array) $uinfo['grps'], $groups_on_creation);
 
         $ok = $this->triggerUserMod(

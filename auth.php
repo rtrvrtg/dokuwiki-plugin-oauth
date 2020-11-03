@@ -237,9 +237,9 @@ class auth_plugin_oauth extends auth_plugin_authplain {
             $uinfo['name'] = $sinfo['name'];
             $index = array_search($conf['defaultgroup'], $sinfo['grps']);
             array_splice($sinfo['grps'], 0, $index, $uinfo['grps']);
-            $uinfo['grps'] = $sinfo['grps'];
+            $uinfo['grps'] = array_unique($sinfo['grps']);
             $changes = array();
-            $changes['grps'] = $sinfo['grps'];
+            $changes['grps'] = array_unique($sinfo['grps']);
 
             $ok = $this->triggerUserMod('modify', array($user, $changes));
             if (!$ok) {
@@ -283,11 +283,11 @@ class auth_plugin_oauth extends auth_plugin_authplain {
         $groups_on_creation[] = $conf['defaultgroup'];
         $groups_on_creation[] = $this->cleanGroup($servicename); // add service as group
         $groups_on_creation = array_unique(array_merge($groups_on_creation, $uinfo['grps']));
-        $uinfo['grps'] = array_merge((array) $uinfo['grps'], $groups_on_creation);
+        $uinfo['grps'] = array_unique(array_merge((array) $uinfo['grps'], $groups_on_creation));
 
         $ok = $this->triggerUserMod(
             'create',
-            array($user, auth_pwgen($user), $uinfo['name'], $uinfo['mail'], $groups_on_creation,)
+            array($user, auth_pwgen($user), $uinfo['name'], $uinfo['mail'], $uinfo['grps'],)
         );
         if(!$ok) {
             return false;

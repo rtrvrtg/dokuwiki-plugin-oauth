@@ -66,6 +66,7 @@ class AzureAdapter extends AbstractAdapter
             $result = $JSON->decode($result);
 
             $mapping = $this->getGroupMap($grpmap);
+            error_log('GROUP MAP ' . print_r($mapping, TRUE));
             $data['grps'] = array();
 
             foreach ($result['value'] as $group_id) {
@@ -74,6 +75,7 @@ class AzureAdapter extends AbstractAdapter
                 }
             }
         }
+        error_log('MAPPED ' . print_r($result['value'], TRUE) . ', ' . print_r($data, TRUE));
 
         return $data;
     }

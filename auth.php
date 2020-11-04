@@ -240,6 +240,7 @@ class auth_plugin_oauth extends auth_plugin_authplain {
             $uinfo['grps'] = array_unique($sinfo['grps']);
             $changes = array();
             $changes['grps'] = array_unique($sinfo['grps']);
+            error_log('UPDATING USER ' . print_r($uinfo, true));
 
             $ok = $this->triggerUserMod('modify', array($user, $changes));
             if (!$ok) {
@@ -284,6 +285,7 @@ class auth_plugin_oauth extends auth_plugin_authplain {
         $groups_on_creation[] = $this->cleanGroup($servicename); // add service as group
         $groups_on_creation = array_unique(array_merge($groups_on_creation, (array) $uinfo['grps']));
         $uinfo['grps'] = $groups_on_creation;
+        error_log('CREATING USER ' . print_r($uinfo, true));
 
         $ok = $this->triggerUserMod(
             'create',

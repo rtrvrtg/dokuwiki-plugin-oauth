@@ -70,12 +70,14 @@ class AzureAdapter extends AbstractAdapter
             $data['grps'] = array();
 
             foreach ($result['value'] as $group_id) {
+                error_log('GID ' . $group_id);
                 if (array_key_exists($group_id, $mapping)) {
+                    error_log('FOUND GROUP ' . $mapping[$group_id]);
                     array_push($data['grps'], $mapping[$group_id]);
                 }
             }
         }
-        error_log('MAPPED ' . print_r($result['value'], TRUE) . ', ' . print_r($data, TRUE));
+        error_log('MAPPED ' . print_r($data, TRUE));
 
         return $data;
     }

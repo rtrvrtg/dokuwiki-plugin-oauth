@@ -66,18 +66,18 @@ class AzureAdapter extends AbstractAdapter
             $result = $JSON->decode($result);
 
             $mapping = $this->getGroupMap($grpmap);
-            error_log('GROUP MAP ' . print_r($mapping, TRUE));
+            // error_log('GROUP MAP ' . print_r($mapping, TRUE));
             $data['grps'] = array();
 
             foreach ($result['value'] as $group_id) {
-                error_log('GID ' . $group_id);
+                // error_log('GID ' . $group_id);
                 if (array_key_exists($group_id, $mapping)) {
-                    error_log('FOUND GROUP ' . $mapping[$group_id]);
+                    // error_log('FOUND GROUP ' . $mapping[$group_id]);
                     array_push($data['grps'], $mapping[$group_id]);
                 }
             }
         }
-        error_log('MAPPED ' . print_r($data, TRUE));
+        // error_log('MAPPED ' . print_r($data, TRUE));
 
         return $data;
     }
